@@ -22,8 +22,7 @@ const Modal: React.FC<ModalProps> = ({ title, onClose, option }) => {
     setLoading(true);
 
     try {
-      const endpoint =
-        option === "Notes" ? "/add-note" : "/add-code";
+      const endpoint = option === "Notes" ? "/add-text" : "/add-code";
 
       const payload =
         option === "Notes"
@@ -42,9 +41,7 @@ const Modal: React.FC<ModalProps> = ({ title, onClose, option }) => {
 
       const res = await fetch(`${API_BASE}${endpoint}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
@@ -57,6 +54,7 @@ const Modal: React.FC<ModalProps> = ({ title, onClose, option }) => {
       console.log("Saved:", data);
       alert("Saved successfully ✅");
       onClose();
+      setText("");
     } catch (err: any) {
       console.error(err);
       alert(err.message || "Something went wrong");
